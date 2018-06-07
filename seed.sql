@@ -54,7 +54,8 @@ VALUES
 ('Subway', 3, 'American', 'www.subway.co.uk'),
 ('Sangam', 4, 'Indian', 'www.sangam.com'),
 ('TamPoPo', 5, 'Thai', 'www.hotNspicy.com'),
-('Golden Palace', 4, 'Chinese', 'www.goldenpalace.com' );
+('Golden Palace', 4, 'Chinese', 'www.goldenpalace.com' ),
+('Hot Wok', 2, 'Chinese', 'www.hotwocky.com');
 
 INSERT INTO comments
 (restaurant_id, body)
@@ -78,4 +79,8 @@ VALUES
 (2, 5),
 (1, 1),
 (2, 2),
-(4, 4);
+(4, 4),
+(2, 5),
+(2, 4);
+
+SELECT * FROM restaurants;

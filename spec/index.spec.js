@@ -1,6 +1,6 @@
 const app = require('../app');
-const request = require('supertest')('app');
-const expect = require('chai');
+const request = require('supertest')(app);
+const { expect } = require('chai');
 
 describe('/api', () => {
   describe('/areas', () => {
@@ -9,7 +9,7 @@ describe('/api', () => {
         .get('/api/areas')
         .expect(200)
         .then(res => {
-          expect(response.body).to.eql({
+          expect(res.body).to.eql({
             '1': {
               area_id: 1,
               area_name: 'Manchester'
