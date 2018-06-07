@@ -1,0 +1,32 @@
+{
+  "name": "BE-rated-restaurants",
+  "version": "1.0.0",
+  "description": "## A micro [yelp](https://www.yelp.co.uk/c/manchester/restaurants) clone API using Express and SQL",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "seed": "psql -f ./seed.sql",
+    "test": "npm run seed && mocha ./spec*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricksmith26/BE-rated-restaurants.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ricksmith26/BE-rated-restaurants/issues"
+  },
+  "homepage": "https://github.com/ricksmith26/BE-rated-restaurants#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mocha": "^5.2.0",
+    "pg-promise": "^8.4.4"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "nodemon": "^1.17.5",
+    "supertest": "^3.1.0"
+  }
+}
