@@ -57,7 +57,7 @@ exports.addRestaurant = (req, res, next) => {
     'INSERT INTO restaurants (restaurant_name, area_id, cuisine, website) VALUES ($1, $2, $3, $4) RETURNING *',
     [restaurant_name, area_id, cuisine, website]
   ).then(data => {
-    db.many('SELECT * FROM restaurants')
+    db.many('SELECT * FROM restaurants WHERE area_id = $1', [area_id])
       .then(restaurants => {
         res.status(201).send({ restaurants });
       })
@@ -90,7 +90,6 @@ exports.getRestaurantComments = (req, res, next) => {
         comments: result
       };
 
-      console.log(endResult);
       res.send(endResult);
     })
     .catch(next);
@@ -109,7 +108,7 @@ exports.getRatingsForRestaurant = (req, res, next) => {
       return acc;
     }, {});
     let area_id;
-    console.log(ratingObj);
+
     const result = {
       restaurant_id: ratings[0].restaurant_id,
       area_id: ratings[0].area_id,
@@ -120,22 +119,37 @@ exports.getRatingsForRestaurant = (req, res, next) => {
     res.send(result);
   });
 };
-//the below is not working yet
-exports.addCommentToRestaurant = (req, res, next) => {
-  const commentParam = req.params;
 
-  const { restaurant_id, body, created_at } = req.body;
+exports.addCommentToRestaurant = (req, res, next) => {
+  const { res_id } = req.params;
+  const { restaurant_id, body } = req.body;
 
   db.one(
-    'INSERT INTO comments (restaurant_id, body) VALUES $1, $1 RETURNING *',
+    'INSERT INTO comments (restaurant_id, body) VALUES ($1, $2) RETURNING *',
     [restaurant_id, body]
-  )
-    .then(data => {
-      db.many('SELECT * comments WHERE restaurant_id = $1', [
-        commentParam
-      ]).then(comments => {
+  ).then(data => {
+    db.many('SELECT * FROM comments')
+      .then(comments => {
         res.status(201).send({ comments });
-      });
-    })
-    .catch(next);
+      })
+
+      .catch(next);
+  });
+};
+
+exports.addRatingToRestaurant = (req, res, next) => {
+  const { res_id } = req.params;
+  const { restaurant_id, rating } = req.body;
+
+  db.one(
+    'INSERT INTO ratings (restaurant_id, rating) VALUES ($1, $2) RETURNING *',
+    [restaurant_id, rating]
+  ).then(data => {
+    db.many('SELECT * FROM ratings WHERE restaurant_id = $1', [restaurant_id])
+      .then(ratings => {
+        res.status(201).send({ ratings });
+      })
+
+      .catch(next);
+  });
 };

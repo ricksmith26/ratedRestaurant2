@@ -10,7 +10,16 @@ app.get('/', (req, res, next) => {
 
 app.use('/api', apiRouter);
 
+app.get('/*', (req, res, next) => {
+  next({ status: 404, msg: 'page not found' });
+});
+
+app.post('/*', (req, res, next) => {
+  next({ status: 400, msg: 'bad post request' });
+});
+
 app.use((err, req, res, next) => {
-  console.log(err, 'Err sent upto error handler...');
+  console.log(err);
+  res.send(err);
 });
 module.exports = app;

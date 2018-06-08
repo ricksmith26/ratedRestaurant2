@@ -83,4 +83,3 @@ VALUES
 (2, 5),
 (2, 4);
 
-SELECT * FROM restaurants;

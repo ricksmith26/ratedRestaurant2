@@ -5,7 +5,9 @@ const {
   addRestaurant,
   getRestaurantComments,
   getRatingsForRestaurant,
-  addCommentToRestaurant
+  addCommentToRestaurant,
+  addRatingToRestaurant,
+  badGetRequest
 } = require('../controllers/index');
 
 apiRouter.get('/areas', getAreas);
@@ -19,5 +21,7 @@ apiRouter.get('/restaurants/:restaurant_id/comments', getRestaurantComments);
 apiRouter.get('/restaurants/:restaurant_id/ratings', getRatingsForRestaurant);
 
 apiRouter.post('/restaurants/:restaurant_id/comments', addCommentToRestaurant);
+
+apiRouter.post('/restaurants/:restaurant_id/ratings', addRatingToRestaurant);
 
 module.exports = apiRouter;
